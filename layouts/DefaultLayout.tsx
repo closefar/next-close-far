@@ -3,9 +3,9 @@ import Navbar from "../components/Navbar";
 
 export default function DefaultLayout({ children }) {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="h-full">{children}</main>
+      <main className="flex-auto">{children}</main>
       <Footer />
     </div>
   );

@@ -254,7 +254,7 @@ const Edit = () => {
           <input
             type="text"
             placeholder="Tags"
-            className="py-2 px-6 placeholder:text-blue-gray-500 outline-none w-full"
+            className="py-2 px-8 placeholder:text-blue-gray-500 outline-none w-full"
           />
           <BreakLine />
         </div>

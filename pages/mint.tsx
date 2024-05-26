@@ -28,6 +28,8 @@ const Mint = () => {
 
   const [file, setFile] = useState<File>();
 
+  const [dragging, setDragging] = useState(false);
+
   const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
   const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
 
@@ -35,9 +37,20 @@ const Mint = () => {
     ev.preventDefault();
     const newFile = ev.dataTransfer.files[0];
     setFile(newFile);
+    setDragging(false);
   };
 
-  const onDragOver = (ev) => ev.preventDefault();
+  const onDragOver = (ev) => {
+    ev.preventDefault();
+  };
+  const onDragEnter = (ev) => {
+    ev.preventDefault();
+    setDragging(true);
+  };
+  const onDragEnd = (ev) => {
+    ev.preventDefault();
+    setDragging(false);
+  };
 
   const mintHandler = () => {
     console.log("mint");
@@ -71,9 +84,15 @@ const Mint = () => {
             id="drop_zone"
             onDrop={onDropHandler}
             onDragOver={onDragOver}
-            className="mt-14 border border-gray-500 border-dashed w-1/2 self-center flex justify-center items-center h-32"
+            onDragEnter={onDragEnter}
+            onDragLeave={onDragEnd}
+            className={`mt-14 z-10 border cursor-pointer border-gray-500 border-dashed w-1/2 self-center flex justify-center items-center h-32 ${
+              dragging ? "bg-green-400" : null
+            }`}
           >
-            <label htmlFor={"file_picker"}>Select a video or drag here</label>
+            <label htmlFor={"file_picker"} className="cursor-pointer">
+              Select a video or drag here
+            </label>
             <input
               id="file_picker"
               type="file"
